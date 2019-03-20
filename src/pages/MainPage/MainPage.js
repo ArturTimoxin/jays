@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { Button } from "react-bootstrap";
 
 class MainPage extends Component {
   render() {
     return (
-      <div>
-        <p id="abc">HEEY</p>
+      <div className="page">
+        <Button />
       </div>
     );
   }

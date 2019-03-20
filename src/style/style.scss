@@ -1,4 +1,17 @@
+@import "../components/Header/style";
 @import "../pages/MainPage/style";
+@import "../pages/Philosophy/style";
+@import "../pages/Locations/style";
+@import "../pages/NotFound/style";
+@import "../pages/Contacts/style";
+@import "../pages/Shop/style";
+
+@font-face {
+  font-family: "Avenir-Heavy";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Avenir LT Std 85 Heavy"), url("./../assets/fonts/Avenir/AvenirLTStd-Heavy.woff") format("woff");
+}
 
 * {
   box-sizing: border-box;
@@ -7,4 +20,33 @@
 body {
   position: relative;
   margin: 0;
+  background-color: lightgrey;
+}
+
+.page {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+}
+
+navigation transition .fade-appear,
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+.fade-appear-active,
+.fade-enter {
+  .fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms linear 150ms;
+  }
+}
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0;
+  transition: opacity 150ms linear;
 }
