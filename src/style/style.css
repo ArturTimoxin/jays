@@ -1,16 +1,15 @@
 #abc {
   color: blue;
   margin: 0;
-  font-size: 80px;
 }
 
 * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
   position: relative;
   margin: 0;
 }
+
 /*# sourceMappingURL=style.css.map */

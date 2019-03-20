@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import MainPage from "../src/pages/MainPage/MainPage";
 import NotFound from "../src/pages/NotFound/NotFound";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import "./style/style.css";
+import "./style/style.scss";
 class App extends Component {
   render() {
     return (
