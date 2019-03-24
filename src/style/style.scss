@@ -20,11 +20,12 @@
 body {
   position: relative;
   margin: 0;
-  background-color: lightgrey;
 }
 
 .page {
   position: absolute;
+  width: 100vw;
+  height: calc(100vh - 50px);
   top: 50px;
   left: 0;
   right: 0;
