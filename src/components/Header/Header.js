@@ -5,8 +5,10 @@ import logoMiniWhite from "../../assets/img/jays-logo-mini-white.png";
 import logoMiniBlack from "../../assets/img/jays-logo-mini-black.png";
 import menuWhiteLogoMobile from "../../assets/img/mobile-white-menu-logo.png";
 import menuBlackLogoMobile from "../../assets/img/mobile-black-menu-logo.png";
-import fbIcon from "../../assets/img/fb-icon-mini.png";
-import instIcon from "../../assets/img/inst-icon-mini.png";
+import fbIconWhite from "../../assets/img/fb-white-icon-mini.png";
+import instIconWhite from "../../assets/img/inst-white-icon-mini.png";
+import fbIconBlack from "../../assets/img/fb-black-icon-mini.png";
+import instIconBlack from "../../assets/img/inst-black-icon-mini.png";
 
 class Header extends Component {
   state = {
@@ -94,9 +96,9 @@ class Header extends Component {
             ))}
           </div>
           <div className="wrapperIconLinks">
-            <img src={instIcon} alt="instIcon" />
+            <img src={blackLinks ? instIconBlack : instIconWhite} alt="instIcon" />
             <img
-              src={fbIcon}
+              src={blackLinks ? fbIconBlack : fbIconWhite}
               alt="fbIcon"
               onClick={() => (document.location.href = "https://www.facebook.com/jayscoffeebrewers/")}
             />
