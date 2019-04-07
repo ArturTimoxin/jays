@@ -13,6 +13,13 @@
   src: local("Avenir LT Std 85 Heavy"), url("./../assets/fonts/Avenir/AvenirLTStd-Heavy.woff") format("woff");
 }
 
+@font-face {
+  font-family: "Avenir-Light";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Avenir LT Std 85 Heavy"), url("./../assets/fonts/Avenir/AvenirLTStd-Light.woff") format("woff");
+}
+
 * {
   box-sizing: border-box;
 }
@@ -24,11 +31,16 @@ body {
 
 .page {
   position: absolute;
-  width: 100vw;
-  height: calc(100vh - 50px);
   top: 50px;
   left: 0;
   right: 0;
+  bottom: 0;
+  .title-page {
+    margin: 20px 40px;
+    font-size: 21px;
+    font-family: "Avenir-Heavy";
+    letter-spacing: 2px;
+  }
 }
 
 navigation transition .fade-appear,

@@ -20,10 +20,10 @@ class App extends Component {
               <CSSTransition key={location.key} timeout={450} classNames="fade">
                 <Switch location={location}>
                   <Route exact path="/" component={MainPage} />
-                  <Route path="/philosophy" component={Philosophy} />
-                  <Route path="/locations" component={Locations} />
-                  <Route path="/shop" component={Shop} />
-                  <Route path="/contacts" component={Contacts} />
+                  <Route path="/philosophy/" component={Philosophy} />
+                  <Route path="/locations/" component={Locations} />
+                  <Route path="/shop/" component={Shop} />
+                  <Route path="/contacts/" component={Contacts} />
                   <Route path="/*" component={NotFound} />
                 </Switch>
               </CSSTransition>

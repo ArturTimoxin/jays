@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 class Shop extends Component {
   render() {
-    return <div className="page">Here will be shop card</div>;
+    return (
+      <div className="page">
+        <h1 className="title-page">SHOP</h1>
+      </div>
+    );
   }
 }
 

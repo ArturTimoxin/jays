@@ -1,0 +1,18 @@
+.wrapperArticles {
+  margin: 30px 40px;
+  article.phylosophyArctle {
+    display: flex;
+    flex-wrap: wrap;
+    section {
+      max-width: 400px;
+      margin-right: 40px;
+      font-size: 14px;
+      font-family: "Avenir-Light";
+      #title-img {
+        max-width: 150px;
+        height: auto;
+        margin: 30px 10px;
+      }
+    }
+  }
+}
