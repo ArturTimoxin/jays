@@ -1,3 +1,4 @@
+export const google = window.google;
 export const MapStyle = [
   {
     elementType: "geometry",

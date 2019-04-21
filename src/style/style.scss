@@ -2,6 +2,7 @@
 @import "../pages/MainPage/style";
 @import "../pages/Philosophy/style";
 @import "../pages/Locations/style";
+@import "../pages/PointInfo/style";
 @import "../pages/NotFound/style";
 @import "../pages/Contacts/style";
 @import "../pages/Shop/style";
@@ -27,6 +28,7 @@
 body {
   position: relative;
   margin: 0;
+  font-family: "Avenir-Light";
 }
 
 .page {
@@ -35,11 +37,18 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  .title-page {
+  .page-section-text {
     margin: 20px 40px;
     font-size: 21px;
     font-family: "Avenir-Heavy";
     letter-spacing: 2px;
+    &.left-margin-none {
+      margin-left: 0;
+    }
+  }
+  .subtitle {
+    font-size: 18px;
+    font-family: "Avenir-Heavy";
   }
 }
 

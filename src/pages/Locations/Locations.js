@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-import { MapStyle } from "./MapStyle";
-import { Route } from "react-router-dom";
+import { MapStyle, google } from "../../constants/MapStyle";
 import { history } from "../../store/configureStore.js";
-import PointInfo from "../PointInfo/PointInfo";
 import MarkerIcon from "../../assets/img/map-marker.png";
 // delete theese when will have server
 import point1 from "../../assets/img/locations/zaporozhya_soborniy_151.jpg";
 import point2 from "../../assets/img/locations/zaporozhya_soborniy_172.jpg";
 import point3 from "../../assets/img/locations/zaporozhya_soborniy_175.jpg";
-const google = window.google;
+
 class Locations extends Component {
   state = {
     points: [
@@ -73,7 +71,7 @@ class Locations extends Component {
     return (
       <div className="page">
         <div className="wrapperLocationsMenu">
-          <h1 className="title-page location-custom-title" onClick={this.toggleLocationsMenu}>
+          <h1 className="page-section-text location-custom-title" onClick={this.toggleLocationsMenu}>
             LOCATIONS
             <div id="pointer" style={{ transform: showLocationsMenu ? "rotate(-90deg)" : "rotate(90deg)" }}>
               >
@@ -111,7 +109,6 @@ class Locations extends Component {
             ))}
           </div>
         </div>
-        <Route path="/locations/:locationId" component={PointInfo} />
       </div>
     );
   }

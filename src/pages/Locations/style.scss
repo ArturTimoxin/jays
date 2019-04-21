@@ -76,38 +76,46 @@
       margin-right: 7px;
     }
   }
-  .locationsItems {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    @media screen and (max-width: 590px) {
-      justify-content: center;
+}
+
+.locationsItems {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  @media screen and (max-width: 768px) {
+    margin: 10px 0 40px 0;
+  }
+  @media screen and (max-width: 590px) {
+    justify-content: center;
+  }
+  .pointInfoWrapper {
+    margin-top: 20px;
+    margin-right: 35px;
+    transition: all 0.9s;
+    opacity: 1;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.4;
     }
-    .pointInfoWrapper {
-      margin-top: 40px;
-      margin-right: 35px;
-      transition: all 0.9s;
-      opacity: 1;
-      cursor: pointer;
-      &:hover {
-        opacity: 0.4;
+    img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      @media screen and (max-width: 1024px) {
+        width: 150px;
+        height: 150px;
       }
-      img {
-        width: 200px;
-        height: 200px;
-        object-fit: cover;
-      }
-      .titleSity {
-        font-size: 16px;
-        font-family: "Avenir-Light";
-        letter-spacing: 2px;
-        margin-top: 11px;
-      }
-      .pointAddress {
-        font-size: 14px;
-        font-family: "Avenir-Light";
-      }
+    }
+    .titleSity {
+      font-size: 16px;
+      font-family: "Avenir-Light";
+      letter-spacing: 2px;
+      margin-top: 11px;
+    }
+    .pointAddress {
+      font-size: 14px;
+      font-family: "Avenir-Light";
     }
   }
 }
