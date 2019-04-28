@@ -1,77 +1,26 @@
 import React, { Component } from "react";
-import { MapStyle, google } from "../../constants/MapStyle";
 import { history } from "../../store/configureStore.js";
-import MarkerIcon from "../../assets/img/map-marker.png";
-// delete theese when will have server
-import point1 from "../../assets/img/locations/zaporozhya_soborniy_151.jpg";
-import point2 from "../../assets/img/locations/zaporozhya_soborniy_172.jpg";
-import point3 from "../../assets/img/locations/zaporozhya_soborniy_175.jpg";
+import { connect } from "react-redux";
+import { TOGGLE_LOCATIONS_MENU } from "../../constants/constants";
+import { getLocationsAndSetMap } from "../../actions/locationsActions";
 
 class Locations extends Component {
-  state = {
-    points: [
-      {
-        id: "0",
-        name: "Soborniy, 151",
-        imageURL: point1, // here will url
-        lat: 47.845174,
-        lng: 35.127215,
-      },
-      {
-        id: "1",
-        name: "Soborniy, 172",
-        imageURL: point2,
-        lat: 47.84129,
-        lng: 35.135475,
-      },
-      {
-        id: "2",
-        name: "Soborniy, 175",
-        imageURL: point3,
-        lat: 47.856365,
-        lng: 35.106713,
-      },
-    ],
-    showLocationsMenu: false,
-  };
-
   componentDidMount() {
-    let styledMapType = new google.maps.StyledMapType(MapStyle, { name: "Styled Map" });
-    const map = new google.maps.Map(this.map, {
-      zoom: 13,
-      center: { lat: 47.846663, lng: 35.124902 },
-      mapTypeControl: false,
-    });
-    map.mapTypes.set("styled_map", styledMapType);
-    map.setMapTypeId("styled_map");
-    this.state.points.forEach(point => {
-      new google.maps.Marker({
-        map: map,
-        position: { lat: point.lat, lng: point.lng },
-        animation: google.maps.Animation.DROP,
-        title: point.name,
-        icon: MarkerIcon,
-      });
-    });
-    this.setState({ map: map });
+    this.props.getLocationsAndSetMap(this.map);
   }
 
-  toggleLocationsMenu = () => {
-    this.setState({ showLocationsMenu: !this.state.showLocationsMenu });
-  };
-
   setMapPosition = coordsCenter => {
-    this.setState({ showLocationsMenu: false });
-    this.state.map.setCenter(coordsCenter);
-    this.state.map.setZoom(18);
+    this.props.toggleLocationsMenu();
+    this.props.map.setCenter(coordsCenter);
+    this.props.map.setZoom(18);
   };
 
   render() {
-    const { points, showLocationsMenu } = this.state;
+    const { points, showLocationsMenu, toggleLocationsMenu } = this.props;
     return (
       <div className="page">
         <div className="wrapperLocationsMenu">
-          <h1 className="page-section-text location-custom-title" onClick={this.toggleLocationsMenu}>
+          <h1 className="page-section-text location-custom-title" onClick={toggleLocationsMenu}>
             LOCATIONS
             <div id="pointer" style={{ transform: showLocationsMenu ? "rotate(-90deg)" : "rotate(90deg)" }}>
               >
@@ -80,7 +29,7 @@ class Locations extends Component {
           <div className={`locationsMenu ${showLocationsMenu ? "open-acordeon" : "close-acordeon"}`}>
             {points.map(elem => (
               <div
-                key={elem.name}
+                key={elem._id}
                 className="location-item"
                 onClick={() => this.setMapPosition({ lat: elem.lat, lng: elem.lng })}
               >
@@ -101,7 +50,7 @@ class Locations extends Component {
           <h2 className="titleLocation">JAYS IN ZAPORIZHIA</h2>
           <div className="locationsItems">
             {points.map(elem => (
-              <div key={elem.lat} className="pointInfoWrapper" onClick={() => history.push(`/locations/${elem.id}`)}>
+              <div key={elem._id} className="pointInfoWrapper" onClick={() => history.push(`/locations/${elem._id}`)}>
                 <img src={elem.imageURL} alt={elem.name} />
                 <div className="titleSity">JAYS Zaporizhia</div>
                 <div className="pointAddress">{elem.name}</div>
@@ -114,4 +63,22 @@ class Locations extends Component {
   }
 }
 
-export default Locations;
+const mapStateToProps = store => {
+  return {
+    points: store.locations.points,
+    showLocationsMenu: store.locations.showLocationsMenu,
+    map: store.locations.map,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleLocationsMenu: () => dispatch({ type: TOGGLE_LOCATIONS_MENU }),
+    getLocationsAndSetMap: mapRef => dispatch(getLocationsAndSetMap(mapRef)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Locations);

@@ -9,7 +9,6 @@ class Philosophy extends Component {
   componentDidMount() {
     API.get("/philosophy")
       .then(res => {
-        console.log(res);
         this.setState({ article: res.data.article });
       })
       .catch(err => {
