@@ -9,7 +9,7 @@ import Locations from "./pages/Locations/Locations";
 import PointInfo from "./pages/PointInfo/PointInfo";
 import Shop from "./pages/Shop/Shop";
 import ProductPage from "./pages/ProductPage/ProductPage";
-import Contacts from "./pages/Contacts/Contacts";
+import Contact from "./pages/Contact/Contact";
 import NotFound from "./pages/NotFound/NotFound";
 class App extends Component {
   render() {
@@ -27,7 +27,7 @@ class App extends Component {
                   <Route exact path="/locations/" component={Locations} />
                   <Route path="/shop/:productId" component={ProductPage} />
                   <Route path="/shop/" component={Shop} />
-                  <Route path="/contacts/" component={Contacts} />
+                  <Route path="/contact/" component={Contact} />
                   <Route path="/*" component={NotFound} />
                 </Switch>
               </CSSTransition>

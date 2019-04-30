@@ -8,7 +8,7 @@ const initialState = {
     { link: "/philosophy", name: "PHILOSOPHY" },
     { link: "/locations", name: "LOCATIONS" },
     { link: "/shop", name: "SHOP" },
-    { link: "/contacts", name: "CONTACTS" },
+    { link: "/contact", name: "CONTACT" },
   ],
 };
 

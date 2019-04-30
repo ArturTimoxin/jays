@@ -9,3 +9,8 @@ export const SET_MAP = "SET_MAP";
 // pointInfo consts
 export const SET_POINT_DATA = "SET_POINT_DATA";
 export const SET_MINI_MAP = "SET_MINI_MAP";
+// shop consts
+export const SET_PRODUCTS = "SET_PRODUCTS";
+// productPage consts
+export const SET_PRODUCT_DATA = "SET_PRODUCT_DATA";
+export const SET_QUANTITY = "SET_QUANTITY";

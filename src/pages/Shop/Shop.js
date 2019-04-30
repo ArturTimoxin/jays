@@ -1,36 +1,21 @@
 import React, { Component } from "react";
-import exampleProduct from "../../assets/img/coffee-package-mini.jpg";
+import { connect } from "react-redux";
 import { history } from "../../store/configureStore.js";
+import { getProducts } from "../../actions/shopActions";
 class Shop extends Component {
-  state = {
-    products: [
-      { id: 0, img: exampleProduct, name: "Coffee arabica", price: "250" },
-      { id: 1, img: exampleProduct, name: "Coffee arabica", price: "250" },
-      { id: 2, img: exampleProduct, name: "Coffee arabica", price: "250" },
-      { id: 3, img: exampleProduct, name: "Coffee arabica", price: "250" },
-      { id: 4, img: exampleProduct, name: "Coffee arabica", price: "250" },
-      { id: 5, img: exampleProduct, name: "Coffee arabica", price: "250" },
-      { id: 6, img: exampleProduct, name: "Coffee arabica", price: "250" },
-      { id: 7, img: exampleProduct, name: "Coffee arabica", price: "250" },
-      { id: 8, img: exampleProduct, name: "Coffee arabica", price: "250" },
-      { id: 9, img: exampleProduct, name: "Coffee arabica", price: "250" },
-      { id: 10, img: exampleProduct, name: "Coffee arabica", price: "250" },
-    ],
-  };
+  componentDidMount() {
+    this.props.getProducts();
+  }
 
   render() {
-    const { products } = this.state;
+    const { products } = this.props;
     return (
       <div className="page">
         <h1 className="page-section-text">SHOP</h1>
         <div className="wrapperProducts">
           {products.map(product => (
-            <div
-              key={product.id + product.name}
-              className="productInfo"
-              onClick={() => history.push(`/shop/${product.id}`)}
-            >
-              <div className="productImage" style={{ backgroundImage: "url(" + product.img + ")" }} />
+            <div key={product._id} className="productInfo" onClick={() => history.push(`/shop/${product._id}`)}>
+              <div className="productImage" style={{ backgroundImage: "url(" + product.mainPhoto + ")" }} />
               <div className="productName">{product.name}</div>
               <div className="price">{`₴${product.price}`}</div>
             </div>
@@ -44,4 +29,19 @@ class Shop extends Component {
   }
 }
 
-export default Shop;
+const mapStateToProps = store => {
+  return {
+    products: store.shop.products,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getProducts: () => dispatch(getProducts()),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Shop);
