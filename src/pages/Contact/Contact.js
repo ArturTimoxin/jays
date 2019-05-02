@@ -1,62 +1,33 @@
 import React, { Component } from "react";
-import API from "../../services/apiAxios";
+import { Form, Field, reduxForm } from "redux-form";
+import { sendMessageFromContactForm } from "../../actions/contactActions";
 
 class Contact extends Component {
-  state = {
-    name: "",
-    email: "",
-    message: "",
-    sendResult: "",
-  };
-
-  handeChangeInput = e => {
-    this.setState({ [e.target.name]: e.target.value, sendResult: "" });
-  };
-
-  sendMessage = e => {
-    e.preventDefault();
-    const { name, email, message } = this.state;
-    this.setState({ name: "", email: "", message: "" });
-    API.post("/message", { name, email, message })
-      .then(res => {
-        switch (res.status) {
-          case 200: {
-            this.setState({ sendResult: "Повідомлення успішно відправлено." });
-            break;
-          }
-          default: {
-            this.setState({ sendResult: "Помилка серверу, спробуйте будь ласка пізніше." });
-            break;
-          }
-        }
-      })
-      .catch(err => {
-        this.setState({ sendResult: err });
-      });
-  };
-
   render() {
-    const { name, email, message, sendResult } = this.state;
+    const { handleSubmit, error } = this.props;
     return (
       <div className="page">
         <h1 className="page-section-text">CONTACT</h1>
         <div className="wrapContactForm">
-          <form onSubmit={this.sendMessage} id="contactForm">
+          <Form onSubmit={handleSubmit(sendMessageFromContactForm)} id="contactForm">
             <label htmlFor="name">Ваше ім'я:</label>
-            <input type="text" name="name" id="name" value={name} required onChange={this.handeChangeInput} />
+            <Field component="input" type="text" name="name" id="name" required />
             <label htmlFor="email">Ваш e-mail:</label>
-            <input type="email" name="email" id="email" value={email} required onChange={this.handeChangeInput} />
+            <Field component="input" type="email" name="email" id="email" required />
             <label htmlFor="message">Ваше повідомлення:</label>
-            <textarea id="message" name="message" rows="5" value={message} required onChange={this.handeChangeInput} />
+            <Field component="textarea" id="message" name="message" rows="5" required />
             <button type="submit" id="sendMessage">
               Відправити
             </button>
-            <div className="sendResult">{sendResult}</div>
-          </form>
+            {/* <div className="sendResult">{sendResult}</div> */}
+            {<div className="sendResult">{error}</div>}
+          </Form>
         </div>
       </div>
     );
   }
 }
 
-export default Contact;
+export default reduxForm({
+  form: "contact",
+})(Contact);

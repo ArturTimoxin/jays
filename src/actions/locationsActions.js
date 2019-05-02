@@ -27,6 +27,21 @@ export function getLocationsAndSetMap(mapRef) {
       });
 }
 
+export function getLocations() {
+  return dispatch =>
+    API.get("/locations")
+      .then(res => {
+        dispatch({
+          type: SET_LOCATIONS,
+          payload: res.data,
+        });
+        return res.data;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+}
+
 function setGoogleMap(mapRef, points) {
   let styledMapType = new google.maps.StyledMapType(MapStyle, { name: "Styled Map" });
   const map = new google.maps.Map(mapRef, {

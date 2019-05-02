@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { history } from "../../store/configureStore.js";
 import { connect } from "react-redux";
-import { TOGGLE_SHOW_MENU, HOME_BLACK_COLOR_LINKS, HOME_WHITE_COLOR_LINKS } from "../../constants/constants";
+import {
+  TOGGLE_SHOW_MENU,
+  HOME_BLACK_COLOR_LINKS,
+  HOME_WHITE_COLOR_LINKS,
+  TOGGLE_SHOW_CART_MODAL,
+} from "../../constants/constants";
 import logoMiniWhite from "../../assets/img/jays-logo-mini-white.png";
 import logoMiniBlack from "../../assets/img/jays-logo-mini-black.png";
 import menuWhiteLogoMobile from "../../assets/img/mobile-white-menu-logo.png";
@@ -11,11 +16,19 @@ import fbIconWhite from "../../assets/img/fb-white-icon-mini.png";
 import instIconWhite from "../../assets/img/inst-white-icon-mini.png";
 import fbIconBlack from "../../assets/img/fb-black-icon-mini.png";
 import instIconBlack from "../../assets/img/inst-black-icon-mini.png";
-
+import cartIconBlack from "../../assets/img/shopping-cart.png";
+import cartIconWhite from "../../assets/img/white-shopping-cart.png";
 class Header extends Component {
-  componentWillMount() {
+  componentDidMount() {
     if (history.location.pathname !== "/") {
       this.props.homeBlackColorLinks();
+    }
+  }
+
+  // when use protected route or other redirects
+  componentWillReceiveProps() {
+    if (history.location.pathname === "/") {
+      this.props.homeWhiteColorLinks();
     }
   }
 
@@ -38,7 +51,10 @@ class Header extends Component {
       toggleShowMenu,
       homeWhiteColorLinks,
       homeBlackColorLinks,
+      toggleShowCartModal,
+      cart,
     } = this.props;
+    let showCartIcon = cart.length > 0;
     return (
       <header>
         <Link to="/">
@@ -89,6 +105,12 @@ class Header extends Component {
             ))}
           </div>
           <div className="wrapperIconLinks">
+            <img
+              src={blackLinks ? cartIconBlack : cartIconWhite}
+              className={`cartIcon ${showCartIcon ? "show" : ""}`}
+              alt="cart-icon"
+              onClick={toggleShowCartModal}
+            />
             <a href="https://www.instagram.com/explore/locations/2102254823147526/jays-coffee-brewers/">
               <img src={blackLinks ? instIconBlack : instIconWhite} alt="instIcon" />
             </a>
@@ -108,6 +130,7 @@ const mapStateToProps = store => {
     blackLinks: store.header.blackLinks,
     blackMenuLogo: store.header.blackMenuLogo,
     linksInfo: store.header.linksInfo,
+    cart: store.cartModal.cart,
   };
 };
 
@@ -116,6 +139,7 @@ const mapDispatchToProps = dispatch => {
     toggleShowMenu: () => dispatch({ type: TOGGLE_SHOW_MENU }),
     homeBlackColorLinks: () => dispatch({ type: HOME_BLACK_COLOR_LINKS }),
     homeWhiteColorLinks: () => dispatch({ type: HOME_WHITE_COLOR_LINKS }),
+    toggleShowCartModal: () => dispatch({ type: TOGGLE_SHOW_CART_MODAL }),
   };
 };
 

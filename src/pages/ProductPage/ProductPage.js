@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Carousel } from "react-bootstrap";
 import { getProductData } from "../../actions/productPageActions";
 import { SET_QUANTITY } from "../../constants/constants";
+import { addProductToCart } from "../../actions/cartModalActions";
 class ProductPage extends Component {
   componentDidMount() {
     this.props.getProductData(this.props.match.params.productId);
@@ -23,8 +24,9 @@ class ProductPage extends Component {
   };
 
   buyProduct = e => {
+    const { cart, addProductToCart, productData, quantityValue, totalOrderPrice } = this.props;
     e.preventDefault();
-    console.log(this.props.quantityValue);
+    addProductToCart(cart, productData, totalOrderPrice, quantityValue);
   };
 
   render() {
@@ -94,7 +96,7 @@ class ProductPage extends Component {
                 </div>
               </div>
               <button type="submit" className="buyButton">
-                Купити
+                Додати в корзину
               </button>
             </form>
           </div>
@@ -108,6 +110,8 @@ const mapStateToProps = store => {
   return {
     productData: store.productPage.productData,
     quantityValue: store.productPage.quantityValue,
+    cart: store.cartModal.cart,
+    totalOrderPrice: store.cartModal.totalOrderPrice,
   };
 };
 
@@ -115,6 +119,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getProductData: id => dispatch(getProductData(id)),
     setQuantity: quantity => dispatch({ type: SET_QUANTITY, payload: quantity }),
+    addProductToCart: (oldCart, product, oldTotalOrderPrice, quantity) =>
+      dispatch(addProductToCart(oldCart, product, oldTotalOrderPrice, quantity)),
   };
 };
 

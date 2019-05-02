@@ -14,3 +14,7 @@ export const SET_PRODUCTS = "SET_PRODUCTS";
 // productPage consts
 export const SET_PRODUCT_DATA = "SET_PRODUCT_DATA";
 export const SET_QUANTITY = "SET_QUANTITY";
+// cartModal consts
+export const ADD_PRODUCT_TO_CART = "ADD_PRODUCT_TO_CART";
+export const TOGGLE_SHOW_CART_MODAL = "TOGGLE_SHOW_CART_MODAL";
+export const REMOVE_PRODUCT_FROM_CART = "REMOVE_PRODUCT_FROM_CART";
