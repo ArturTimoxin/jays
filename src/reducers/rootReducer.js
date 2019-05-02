@@ -5,7 +5,6 @@ import { pointInfoReducer } from "./pointInfoReducer";
 import { shopReducer } from "./shopReducer";
 import { productPageReducer } from "./productPageReducer";
 import { cartModalReducer } from "./cartModalReducer";
-import { reducer as formReducer } from "redux-form";
 export const rootReducer = combineReducers({
   header: headerReducer,
   locations: locationsReducer,
@@ -13,5 +12,4 @@ export const rootReducer = combineReducers({
   shop: shopReducer,
   productPage: productPageReducer,
   cartModal: cartModalReducer,
-  form: formReducer,
 });
