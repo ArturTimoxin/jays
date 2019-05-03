@@ -51,15 +51,15 @@
       margin: 40px 0px;
       padding: 10px;
       font-size: 25px;
-      color: black;
-      background-color: white;
+      color: white;
+      background-color: black;
       border: 2px solid black;
       border-radius: 2px;
       transition: all 0.4s;
       outline: none;
       &:hover {
-        color: white;
-        background-color: black;
+        color: black;
+        background-color: white;
       }
     }
   }

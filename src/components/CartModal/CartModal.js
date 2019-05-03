@@ -23,7 +23,7 @@ class CartModal extends Component {
           <div className="wrapOrderInfo">
             {cart.map(item => {
               return (
-                <div className="wrapProduct">
+                <div className="wrapProduct" key={item.name}>
                   <span>
                     <div className="deleteProduct" onClick={() => this.deleteProduct(item)}>
                       +

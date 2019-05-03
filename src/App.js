@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./style/style.scss";
 import { Route, Switch } from "react-router-dom";
-// import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Header from "./components/Header/Header";
 import CartModal from "./components/CartModal/CartModal";
 import MainPage from "./pages/MainPage/MainPage";
@@ -22,12 +21,10 @@ class App extends Component {
         <CartModal />
         <Route
           render={({ location }) => (
-            // <TransitionGroup>
-            //   <CSSTransition key={location.key} timeout={450} classNames="fade">
             <Switch location={location}>
               <Route exact path="/" component={MainPage} />
               <Route path="/philosophy/" component={Philosophy} />
-              <Route path="/locations/:locationId" component={PointInfo} />
+              <Route exact path="/locations/:locationId" component={PointInfo} />
               <Route exact path="/locations/" component={Locations} />
               <Route path="/shop/:productId" component={ProductPage} />
               <Route path="/shop/" component={Shop} />
@@ -35,8 +32,6 @@ class App extends Component {
               <OrderProtectedRoute path="/order" component={OrderPage} />
               <Route path="/*" component={NotFound} />
             </Switch>
-            //   </CSSTransition>
-            // </TransitionGroup>
           )}
         />
       </div>

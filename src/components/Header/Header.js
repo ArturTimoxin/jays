@@ -52,9 +52,8 @@ class Header extends Component {
       homeWhiteColorLinks,
       homeBlackColorLinks,
       toggleShowCartModal,
-      cart,
+      showCartIcon,
     } = this.props;
-    let showCartIcon = cart.length > 0;
     return (
       <header>
         <Link to="/">
@@ -130,7 +129,7 @@ const mapStateToProps = store => {
     blackLinks: store.header.blackLinks,
     blackMenuLogo: store.header.blackMenuLogo,
     linksInfo: store.header.linksInfo,
-    cart: store.cartModal.cart,
+    showCartIcon: store.cartModal.showCartIcon,
   };
 };
 

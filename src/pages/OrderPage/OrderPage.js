@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { getLocations } from "../../actions/locationsActions";
 import { removeProductFromCart } from "../../actions/cartModalActions";
+import { TOGGLE_SHOW_CART_ICON } from "../../constants/constants";
+import MaskedInput from "react-text-mask";
+import { maskPhone } from "../../constants/InputMasks";
+
 class OrderPage extends Component {
   componentDidMount() {
-    const { points, getLocations } = this.props;
+    const { points, getLocations, toggleShowCartIcon } = this.props;
     if (!points.length) {
       getLocations();
     }
+    toggleShowCartIcon();
   }
 
   deleteProduct = product => {
@@ -15,16 +21,20 @@ class OrderPage extends Component {
     removeProductFromCart(cart, product, totalOrderPrice);
   };
 
+  componentWillUnmount() {
+    this.props.toggleShowCartIcon();
+  }
+
   render() {
     const { points, cart, totalOrderPrice } = this.props;
     return (
       <div className="page">
-        <h1 className="page-section-text">Оформлення замовлення</h1>
+        <h1 className="order-title">Оформлення замовлення</h1>
         <div className="order">
           <div className="wrapOrderInfo">
             {cart.map(item => {
               return (
-                <div className="wrapProduct">
+                <div className="wrapProduct" key={item.name}>
                   <span>
                     <img src={item.mainPhoto} alt="productPhoto" className="miniProductPhoto" />
                     <span className="nameProduct">{item.name}</span>
@@ -35,22 +45,38 @@ class OrderPage extends Component {
               );
             })}
           </div>
-          <div className="totalPrice">{totalOrderPrice ? `Усього: ${totalOrderPrice} ₴` : ``}</div>
+          <div className="wrapLaTP">
+            <Link to="/shop" className="backToShop">
+              Назад в магазин
+            </Link>
+            <div className="totalPrice">{totalOrderPrice ? `Усього: ${totalOrderPrice} ₴` : ``}</div>
+          </div>
         </div>
-        <form onSubmit="">
+        <form onSubmit="" id="orderForm">
           <label htmlFor="nameInput">Ім'я:</label>
           <input type="text" name="name" id="nameInput" required />
           <label htmlFor="phoneInput">Телефон:</label>
-          <input type="phone" name="phone" id="phoneInput" required />
+          <MaskedInput
+            type="text"
+            required
+            mask={maskPhone}
+            guide={false}
+            showMask={true}
+            name="phone"
+            id="phoneInput"
+          />
           <label htmlFor="pointInput">В якій кав'ярні ви б хотіли забрати замовлення?</label>
           <select name="point" id="pointInput" required>
             {points.map(elem => (
-              <option>{elem.name}</option>
+              <option key={elem._id + elem.name}>{elem.name}</option>
             ))}
           </select>
           <label htmlFor="timeInput">У який час?</label>
-          <input type="time" id="timeInput" required />
-          <button type="submit">Оформити замовлення</button>
+          <input type="time" min="10:00" max="19:00" id="timeInput" required />
+          <div id="timeMes">* Ми видаємо замовлення з 10:00 до 19:00</div>
+          <button type="submit" id="orderSubmitBtn">
+            Відправити замовлення
+          </button>
         </form>
       </div>
     );
@@ -70,6 +96,7 @@ const mapDispatchToProps = dispatch => {
     getLocations: () => dispatch(getLocations()),
     removeProductFromCart: (cart, product, totalOrderPrice) =>
       dispatch(removeProductFromCart(cart, product, totalOrderPrice)),
+    toggleShowCartIcon: () => dispatch({ type: TOGGLE_SHOW_CART_ICON }),
   };
 };
 

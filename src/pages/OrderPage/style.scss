@@ -1,4 +1,12 @@
+.order-title {
+  margin: 20px 40px;
+  font-size: 21px;
+  letter-spacing: 2px;
+  font-family: Verdana, sans-serif;
+}
+
 .order {
+  font-family: Verdana, sans-serif;
   width: 40%;
   min-width: 300px;
   margin: 30px auto;
@@ -12,5 +20,104 @@
     .wrapProduct {
       margin: 10px 0px;
     }
+  }
+  .wrapLaTP {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+#orderForm {
+  font-family: Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: 0 auto;
+  @media screen and (max-width: 800px) {
+    width: 60%;
+  }
+  @media screen and (max-width: 500px) {
+    width: 90%;
+  }
+  label {
+    margin-top: 40px;
+    font-size: 20px;
+    font-weight: 400;
+    &:first-child {
+      margin-top: 0px;
+    }
+  }
+  input {
+    outline: none;
+    height: 50px;
+    padding: 0px 20px;
+    border: 1px solid #c1c1c1;
+    border-radius: 4px;
+  }
+  label[for="nameInput"] {
+    &:before {
+      content: url("../assets/img/profile.png");
+      margin-right: 7px;
+    }
+  }
+  label[for="phoneInput"] {
+    &:before {
+      content: url("../assets/img/telephone.png");
+      margin-right: 7px;
+    }
+  }
+  label[for="pointInput"] {
+    &:before {
+      content: url("../assets/img/shop.png");
+      margin-right: 7px;
+    }
+  }
+  label[for="timeInput"] {
+    &:before {
+      content: url("../assets/img/clock.png");
+      margin-right: 7px;
+    }
+  }
+
+  #pointInput {
+    outline: none;
+    height: 50px;
+    padding: 0px 20px;
+    border: 1px solid #c1c1c1;
+    border-radius: 4px;
+    option {
+    }
+  }
+
+  input[type="time"]::-webkit-inner-spin-button,
+  input[type="time"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+
+  #orderSubmitBtn {
+    margin: 40px 0px;
+    padding: 10px;
+    font-size: 25px;
+    color: white;
+    background-color: black;
+    border: 2px solid black;
+    border-radius: 2px;
+    transition: all 0.4s;
+    outline: none;
+    &:hover {
+      color: black;
+      background-color: white;
+    }
+  }
+}
+
+.backToShop {
+  color: black;
+  &:hover {
+    color: black;
+  }
+  @media screen and (max-width: 500px) {
+    font-size: 12px;
   }
 }
