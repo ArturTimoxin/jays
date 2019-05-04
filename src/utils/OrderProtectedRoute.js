@@ -6,18 +6,18 @@ const OrderProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props => {
-      const { cart } = rest;
-      return cart.length > 0 ? (
-        <Component {...props} />
-      ) : (
+      const { redirectToMainPage } = rest;
+      return redirectToMainPage ? (
         <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+      ) : (
+        <Component {...props} />
       );
     }}
   />
 );
 
 const mapStateToProps = state => ({
-  cart: state.cartModal.cart,
+  redirectToMainPage: state.cartModal.redirectToMainPage,
 });
 
 export default connect(mapStateToProps)(OrderProtectedRoute);

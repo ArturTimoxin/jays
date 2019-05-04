@@ -8,6 +8,12 @@ class PointInfo extends Component {
     this.props.getPointDataAndSetMiniMap(this.props.match.params.locationId, this.miniMap);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.locationId !== this.props.match.params.locationId) {
+      this.props.getPointDataAndSetMiniMap(nextProps.match.params.locationId, this.miniMap);
+    }
+  }
+
   render() {
     const {
       mainImageURL,

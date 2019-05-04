@@ -1,35 +1,111 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import API from "../../services/apiAxios";
 import { getLocations } from "../../actions/locationsActions";
-import { removeProductFromCart } from "../../actions/cartModalActions";
-import { TOGGLE_SHOW_CART_ICON } from "../../constants/constants";
+import { TOGGLE_SHOW_CART_ICON, CLEAR_CART } from "../../constants/constants";
 import MaskedInput from "react-text-mask";
 import { maskPhone } from "../../constants/InputMasks";
+import SuccessOrderModal from "./SuccessOrderModal";
 
 class OrderPage extends Component {
+  state = {
+    name: "",
+    phone: "",
+    point: "",
+    date: "",
+    defaultDateInput: "",
+    time: "",
+    resultSendErr: "",
+    showSuccessModal: false,
+    successModalMessage: "",
+  };
+
   componentDidMount() {
     const { points, getLocations, toggleShowCartIcon } = this.props;
     if (!points.length) {
       getLocations();
     }
     toggleShowCartIcon();
+    // set day for dateInput
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+    let today = year + "-" + month + "-" + day;
+    this.setState({ defaultDateInput: today, date: today });
   }
-
-  deleteProduct = product => {
-    const { removeProductFromCart, cart, totalOrderPrice } = this.props;
-    removeProductFromCart(cart, product, totalOrderPrice);
-  };
 
   componentWillUnmount() {
     this.props.toggleShowCartIcon();
   }
 
+  handleChangeInput = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  sendOrder = e => {
+    e.preventDefault();
+    const { name, phone, date, time, point } = this.state;
+    const { cart, totalOrderPrice, points, clearCart } = this.props;
+    let tmpPoint = point;
+    if (tmpPoint === "") {
+      tmpPoint = points[0].name;
+    }
+    let cartForOrder = cart.map(elem => {
+      return {
+        nameProduct: elem.name,
+        priceProduct: elem.price,
+        quantityProduct: elem.quantity,
+      };
+    });
+    const orderData = { name, phone, date, time, point: tmpPoint, cartForOrder, totalOrderPrice };
+    API.post("/order", orderData)
+      .then(res => {
+        switch (res.status) {
+          case 200: {
+            clearCart();
+            this.setState({
+              showSuccessModal: true,
+              successModalMessage: "Ваше замовлення було прийнято. Чекаємо на вас :)",
+              name: "",
+              phone: "",
+              point: "",
+              date: "",
+              time: "",
+              resultSendErr: "",
+            });
+            break;
+          }
+          default: {
+            this.setState({ resultSendErr: "Помилка серверу, спробуйте будь ласка пізніше." });
+            break;
+          }
+        }
+      })
+      .catch(err => {
+        this.setState({ resultSendErr: "Помилка серверу, спробуйте будь ласка пізніше." });
+      });
+  };
+
   render() {
     const { points, cart, totalOrderPrice } = this.props;
+    const {
+      resultSendErr,
+      showSuccessModal,
+      successModalMessage,
+      name,
+      phone,
+      point,
+      time,
+      defaultDateInput,
+    } = this.state;
     return (
       <div className="page">
         <h1 className="order-title">Оформлення замовлення</h1>
+        <SuccessOrderModal showSuccessModal={showSuccessModal} successModalMessage={successModalMessage} />
         <div className="order">
           <div className="wrapOrderInfo">
             {cart.map(item => {
@@ -52,9 +128,9 @@ class OrderPage extends Component {
             <div className="totalPrice">{totalOrderPrice ? `Усього: ${totalOrderPrice} ₴` : ``}</div>
           </div>
         </div>
-        <form onSubmit="" id="orderForm">
+        <form onSubmit={this.sendOrder} id="orderForm">
           <label htmlFor="nameInput">Ім'я:</label>
-          <input type="text" name="name" id="nameInput" required />
+          <input type="text" name="name" value={name} id="nameInput" required onChange={this.handleChangeInput} />
           <label htmlFor="phoneInput">Телефон:</label>
           <MaskedInput
             type="text"
@@ -62,21 +138,45 @@ class OrderPage extends Component {
             mask={maskPhone}
             guide={false}
             showMask={true}
+            value={phone}
             name="phone"
             id="phoneInput"
+            onChange={this.handleChangeInput}
           />
           <label htmlFor="pointInput">В якій кав'ярні ви б хотіли забрати замовлення?</label>
-          <select name="point" id="pointInput" required>
+          <select name="point" id="pointInput" value={point} required onChange={this.handleChangeInput}>
             {points.map(elem => (
-              <option key={elem._id + elem.name}>{elem.name}</option>
+              <option value={elem.name} key={elem._id + elem.name}>
+                {elem.name}
+              </option>
             ))}
           </select>
-          <label htmlFor="timeInput">У який час?</label>
-          <input type="time" min="10:00" max="19:00" id="timeInput" required />
+          <label htmlFor="dateInput">У який день?</label>
+          <input
+            type="date"
+            id="dateInput"
+            name="date"
+            onChange={this.handleChangeInput}
+            defaultValue={defaultDateInput}
+            min={defaultDateInput}
+            required
+          />
+          <label htmlFor="timeInput">Коли?</label>
+          <input
+            type="time"
+            name="time"
+            min="10:00"
+            max="19:00"
+            id="timeInput"
+            value={time}
+            required
+            onChange={this.handleChangeInput}
+          />
           <div id="timeMes">* Ми видаємо замовлення з 10:00 до 19:00</div>
           <button type="submit" id="orderSubmitBtn">
             Відправити замовлення
           </button>
+          <div className="sendResult">{resultSendErr}</div>
         </form>
       </div>
     );
@@ -94,9 +194,8 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     getLocations: () => dispatch(getLocations()),
-    removeProductFromCart: (cart, product, totalOrderPrice) =>
-      dispatch(removeProductFromCart(cart, product, totalOrderPrice)),
     toggleShowCartIcon: () => dispatch({ type: TOGGLE_SHOW_CART_ICON }),
+    clearCart: () => dispatch({ type: CLEAR_CART }),
   };
 };
 

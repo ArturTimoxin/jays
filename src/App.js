@@ -24,8 +24,8 @@ class App extends Component {
             <Switch location={location}>
               <Route exact path="/" component={MainPage} />
               <Route path="/philosophy/" component={Philosophy} />
-              <Route exact path="/locations/:locationId" component={PointInfo} />
-              <Route exact path="/locations/" component={Locations} />
+              <Route path="/locations/:locationId" component={PointInfo} />
+              <Route path="/locations/" component={Locations} />
               <Route path="/shop/:productId" component={ProductPage} />
               <Route path="/shop/" component={Shop} />
               <Route path="/contact/" component={Contact} />

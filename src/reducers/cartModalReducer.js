@@ -5,6 +5,7 @@ const initialState = {
   totalOrderPrice: 0,
   showCartModal: false,
   showCartIcon: false,
+  redirectToMainPage: true,
 };
 
 export function cartModalReducer(state = initialState, action) {
@@ -16,6 +17,7 @@ export function cartModalReducer(state = initialState, action) {
         totalOrderPrice: action.payload.newTotalOrderPrice,
         showCartModal: true,
         showCartIcon: true,
+        redirectToMainPage: false,
       };
     }
     case cartModalConst.TOGGLE_SHOW_CART_MODAL: {
@@ -27,12 +29,21 @@ export function cartModalReducer(state = initialState, action) {
         cart: action.payload.newCart,
         totalOrderPrice: action.payload.newTotalOrderPrice,
         showCartIcon: action.payload.newCart.lenght > 0,
+        redirectToMainPage: action.payload.newCart.lenght === 0,
       };
     }
     case cartModalConst.TOGGLE_SHOW_CART_ICON: {
       return {
         ...state,
         showCartIcon: !state.showCartIcon,
+      };
+    }
+    case cartModalConst.CLEAR_CART: {
+      return {
+        ...state,
+        showCartIcon: !state.showCartIcon,
+        cart: [],
+        totalOrderPrice: 0,
       };
     }
     default:

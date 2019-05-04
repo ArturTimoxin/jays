@@ -33,7 +33,7 @@
   display: flex;
   flex-direction: column;
   width: 40%;
-  margin: 0 auto;
+  margin: 15px auto;
   @media screen and (max-width: 800px) {
     width: 60%;
   }
@@ -79,6 +79,12 @@
       margin-right: 7px;
     }
   }
+  label[for="dateInput"] {
+    &:before {
+      content: url("../assets/img/calendar.png");
+      margin-right: 7px;
+    }
+  }
 
   #pointInput {
     outline: none;
@@ -86,8 +92,6 @@
     padding: 0px 20px;
     border: 1px solid #c1c1c1;
     border-radius: 4px;
-    option {
-    }
   }
 
   input[type="time"]::-webkit-inner-spin-button,
@@ -95,8 +99,13 @@
     -webkit-appearance: none;
   }
 
+  input[type="date"]::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+
   #orderSubmitBtn {
-    margin: 40px 0px;
+    margin: 40px 0px 20px 0px;
     padding: 10px;
     font-size: 25px;
     color: white;
@@ -119,5 +128,61 @@
   }
   @media screen and (max-width: 500px) {
     font-size: 12px;
+  }
+}
+
+.successOrderModal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    z-index: 4;
+  }
+  .modalWindow {
+    max-width: 700px;
+    min-width: 300px;
+    width: 100%;
+    min-height: 350px;
+    position: relative;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    .message {
+      color: black;
+      font-size: 30px;
+      text-align: center;
+      @media screen {
+        font-size: 20px;
+      }
+    }
+    .backToShopButton {
+      margin: 40px 0px 20px 0px;
+      padding: 10px;
+      font-size: 25px;
+      color: white;
+      background-color: black;
+      border: 2px solid black;
+      border-radius: 2px;
+      transition: all 0.4s;
+      outline: none;
+      text-decoration: none;
+      &:hover {
+        color: black;
+        background-color: white;
+      }
+    }
   }
 }
