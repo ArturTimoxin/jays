@@ -35,13 +35,14 @@
           // TODO: Add media queries for images (when i get information about it)
         }
         // 2 VAR
-        // div {
-        //   height: 100%;
-        //   background-position: center center;
-        //   background-repeat: no-repeat;
-        //   background-attachment: fixed;
-        //   background-size: cover;
-        // }
+        div {
+          background-image: url("http://localhost:3001/main-page/1_1920.jpg");
+          height: 100%;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+        }
       }
     }
   }

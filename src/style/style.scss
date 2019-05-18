@@ -24,8 +24,12 @@
   src: local("Avenir LT Std 85 Heavy"), url("./../assets/fonts/Avenir/AvenirLTStd-Light.woff") format("woff");
 }
 
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+
+
 * {
   box-sizing: border-box;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 body {
