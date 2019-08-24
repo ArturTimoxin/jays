@@ -33,7 +33,7 @@ class Locations extends Component {
                 className="location-item"
                 onClick={() => this.setMapPosition({ lat: elem.lat, lng: elem.lng })}
               >
-                {elem.name}
+                {elem.pointName}
               </div>
             ))}
           </div>
@@ -47,13 +47,13 @@ class Locations extends Component {
           />
         </div>
         <div className="wrapperLocationsItems">
-          <h2 className="titleLocation">JAYS IN ZAPORIZHIA</h2>
+          <h2 className="titleLocation">JAYS POINTS</h2>
           <div className="locationsItems">
             {points.map(elem => (
               <div key={elem._id} className="pointInfoWrapper" onClick={() => history.push(`/locations/${elem._id}`)}>
-                <img src={elem.imageURL} alt={elem.name} />
-                <div className="titleSity">JAYS Zaporizhia</div>
-                <div className="pointAddress">{elem.name}</div>
+                <img src={elem.imageURL} alt={elem.pointName} />
+                <div className="titleSity">JAYS</div>
+                <div className="pointAddress">{elem.pointName}</div>
               </div>
             ))}
           </div>

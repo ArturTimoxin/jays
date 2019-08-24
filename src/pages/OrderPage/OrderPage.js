@@ -146,8 +146,8 @@ class OrderPage extends Component {
           <label htmlFor="pointInput">В якій кав'ярні ви б хотіли забрати замовлення?</label>
           <select name="point" id="pointInput" value={point} required onChange={this.handleChangeInput}>
             {points.map(elem => (
-              <option value={elem.name} key={elem._id + elem.name}>
-                {elem.name}
+              <option value={elem.pointName} key={elem._id + elem.pointName}>
+                {elem.pointName}
               </option>
             ))}
           </select>

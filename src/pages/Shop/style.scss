@@ -29,15 +29,14 @@
     }
     .productName {
       margin: 10px 0;
-      font-size: 20px;
+      font-size: 22px;
       &:before {
         content: url("../assets/img/before-jays-logo-mini-black.png");
         margin-right: 7px;
       }
     }
-    .productPrice {
-      font-size: 15px;
-      color: #f4f4f4;
+    .price {
+      font-size: 20px;
     }
   }
   .emptyProductInfo {

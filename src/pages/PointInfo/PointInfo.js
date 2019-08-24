@@ -38,7 +38,7 @@ class PointInfo extends Component {
               {neighborhoodPoints.map(elem => (
                 <div key={elem._id} className="pointInfoWrapper" onClick={() => history.push(`/locations/${elem._id}`)}>
                   <img src={elem.imageURL} alt={elem.name} />
-                  <div className="titleSity">JAYS Zaporizhia</div>
+                  <div className="titleSity">JAYS</div>
                   <div className="pointAddress">{elem.name}</div>
                 </div>
               ))}
